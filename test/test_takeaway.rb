@@ -14,8 +14,8 @@ class ImageTest < MiniTest::Unit::TestCase
   end
 
   def test_confirm_order_when_correct_comparison
-    @takeaway.stubs(:send!).returns(true)
-    assert_equal @takeaway.confirm_order, @takeaway.compare(33, 33)
+    @takeaway.stubs(:send).returns(true)
+    assert_equal true, @takeaway.compare(33, 33)
   end
 
   def test_error_message_when_wrong_comparison
@@ -25,9 +25,9 @@ class ImageTest < MiniTest::Unit::TestCase
   end
 
   def test_send_message_for_confirmation
-    @takeaway.stubs(:send!).returns(true)
-    assert_equal @takeaway.send!, @takeaway.compare(33, 33)
+    message = %Q[Thank you! Your order was placed and will be delivered before #{(Time.now + 3600).strftime("%H:%M")}]
+    @takeaway.stubs(:send).returns(message)
+    assert_equal message, @takeaway.confirm_order
   end
 
 end
-

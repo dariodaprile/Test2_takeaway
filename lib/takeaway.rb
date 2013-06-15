@@ -27,14 +27,12 @@ class Takeaway
   end
 
   def confirm_order
-    @message = %Q[Thank you! Your order was placed and will be delivered before #{(Time.now + 3600).strftime("%H:%M")}]
-    send!
+    message = %Q[Thank you! Your order was placed and will be delivered before #{(Time.now + 3600).strftime("%H:%M")}]
+    send(message)
   end
 
-  def send!
+  def send(text)
   @account = @client.account
-  @account.sms.messages.create({:from => '+441752395736', :to => '+447554438544', :body => '@message'})
+  @account.sms.messages.create({:from => '+441752395736', :to => '+447554438544', :body => text})
   end
-
 end
-
